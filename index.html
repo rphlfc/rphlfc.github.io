@@ -1,112 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: default
+title: Home
+---
 
-<head>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-54XM3NW');</script>
-  <!-- End Google Tag Manager -->
+<div class="posts">
+  {% for post in paginator.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url | absolute_url }}">
+        {{ post.title }}
+      </a>
+    </h1>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175462661-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'UA-175462661-1');
-  </script>
+    <span class="post-date">{{ post.date | date_to_string }}</span>
 
-  <meta charset="utf-8" />
-  <link rel="shortcut icon"
-    href="https://avatars0.githubusercontent.com/u/16376748?s=400&u=e95b8d55e0ab7bbbecebcd7ccd6c36d1d5118498&v=4" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#343a40" />
-  <meta name="description" content="My Links" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <title>Links - Raphael Cerqueira</title>
-  <style>
-    body {
-      background-color: #282a36;
-    }
-
-    h5 {
-      color: #f8f8f2;
-    }
-
-    p {
-      color: #f8f8f2;
-    }
-
-    .name {
-      color: #343a40;
-    }
-
-    .love {
-      color: #343a40 !important;
-    }
-
-    /*----------------- Mail-------------------- */
-    #email {
-      text-decoration: none;
-      float: right;
-      color: #343a40;
-    }
-
-    .footer {
-      margin-top: 5% !important;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 479px) {
-      .footer {
-        margin-top: 35% !important;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54XM3NW" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <div class="container">
-    <div class="media mt-5">
-      <img src="https://avatars0.githubusercontent.com/u/16376748?s=400&u=e95b8d55e0ab7bbbecebcd7ccd6c36d1d5118498&v=4"
-        class="m-3 rounded-circle" alt="image" width="90px" height="90px">
-      <div class="media-body m-2">
-        <h5 class="align-items-center mt-2">Raphael Cerqueira</h5>
-      </div>
-    </div>
-    <div class="mt-4">
-      <a href="https://github.com/rphlfc" class="btn btn-outline-light btn-block btn-lg" role="button" target="_blank"
-        id="github-btn"><i class="fab fa-github">&nbsp;</i>Github</a>
-      <br>
-      <a href="https://www.instagram.com/rphlfc.dev" class="btn btn-outline-light btn-block btn-lg" role="button"
-        target="_blank" id="instagram-btn"><i class="fab fa-instagram">&nbsp;</i>Instagram</a>
-      <br>
-      <a href="http://www.linkedin.com/in/rphlfc" class="btn btn-outline-light btn-block btn-lg" role="button"
-        target="_blank" id="linkedin-btn"><i class="fab fa-linkedin">&nbsp;</i>LinkedIn</a>
-      <br>
-      <a href="https://twitter.com/rphlfc" class="btn btn-outline-light btn-block btn-lg" role="button" target="_blank"
-        id="twitter-btn"><i class="fab fa-twitter">&nbsp;</i>Twitter</a>
-      <br>
-      <a href="https://rphlfc.github.io" class="btn btn-outline-light btn-block btn-lg" role="button" target="_blank"
-        id="website-btn"><i class="fa fa-globe">&nbsp;</i>Website</a>
-      <br>
-      <a href="https://www.youtube.com/channel/UC7UXnCqiqsV4R9lCwKh-rwg" class="btn btn-outline-light btn-block btn-lg"
-        role="button" target="_blank" id="youtube-btn"><i class="fa fa-play">&nbsp;</i>Youtube</a>
-    </div>
+    {{ post.content }}
   </div>
-</body>
+  {% endfor %}
+</div>
 
-</html>
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ paginator.next_page_path | absolute_url }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ '/' | absolute_url }}">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ paginator.previous_page_path | absolute_url }}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
